@@ -35,7 +35,8 @@ let rec get_route waypoints cur_step w =
           else if y < 49 && (match w.(x).(y+1).(z) with Step(v) -> v | _ -> -1) == next_step then get_route (Coord(x,y+1,z)::waypoints) next_step w
           else if z > 0  && (match w.(x).(y).(z-1) with Step(v) -> v | _ -> -1) == next_step then get_route (Coord(x,y,z-1)::waypoints) next_step w
           else if z < 49 && (match w.(x).(y).(z+1) with Step(v) -> v | _ -> -1) == next_step then get_route (Coord(x,y,z+1)::waypoints) next_step w
-          else waypoints;;
+          else waypoints
+      | [] -> [];;
 
 let rec print_result list =
   match list with

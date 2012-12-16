@@ -2,10 +2,10 @@
 require 'socket'
 s = TCPSocket.new("ctf.phdays.com", 1165)
 user = s.gets.chomp.match(/, (\S+) /)[1]
-s.puts user
+s.write user+"\r\n"
 lines = []
 while line = s.gets
-  puts line
+  puts line.chomp!
   lines.push line
   if line.match /Find/
     File.open("data","w") do |f|
@@ -15,7 +15,7 @@ while line = s.gets
     end
     lines = []
     system "./make.sh"
-    puts result = `ocaml run.ml`
-    s.puts result
+    p result = `ocaml run.ml`
+    s.write result+"\r\n"
   end
 end
